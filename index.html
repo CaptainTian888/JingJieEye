@@ -3,96 +3,576 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClearVision - 学生近视防控眼镜官方网站</title>
-    <link rel="stylesheet" href="style.css">
+    <title>镜界 · 学生近视防控专业眼镜</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+/* ===========================
+   镜界 · 近视防控 — 官方网站
+   Premium Design System
+   =========================== */
+
+:root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2e45;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e6c97a;
+    --gold-pale: #f5e6c0;
+    --white: #ffffff;
+    --off-white: #f8f6f1;
+    --text-dark: #0d1b2a;
+    --text-mid: #3d5166;
+    --text-light: #7a90a4;
+    --border: rgba(201, 168, 76, 0.2);
+    --shadow-sm: 0 4px 20px rgba(13, 27, 42, 0.08);
+    --shadow-md: 0 12px 40px rgba(13, 27, 42, 0.12);
+    --shadow-lg: 0 24px 64px rgba(13, 27, 42, 0.18);
+    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    color: var(--text-dark);
+    background: var(--white);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 40px;
+    transition: var(--transition);
+}
+.navbar.scrolled {
+    background: rgba(13, 27, 42, 0.96);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+.logo-icon { color: var(--gold); font-size: 22px; line-height: 1; }
+.logo-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--white); letter-spacing: 2px;
+}
+.logo-sub {
+    font-size: 11px; color: var(--gold-light);
+    letter-spacing: 1px; padding: 2px 6px;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 2px; font-weight: 400; margin-left: 4px;
+}
+.nav-menu { display: flex; gap: 40px; align-items: center; }
+.nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,0.75);
+    font-size: 14px; font-weight: 500;
+    letter-spacing: 0.5px; position: relative;
+    transition: var(--transition);
+}
+.nav-link::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: var(--transition);
+}
+.nav-link:hover, .nav-link.active { color: var(--white); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none; padding: 4px;
+}
+.hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--white); transition: var(--transition); border-radius: 2px;
+}
+
+/* HERO */
+.hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: flex-start;
+    overflow: hidden;
+}
+.hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center 30%;
+    transform: scale(1.05);
+    animation: heroZoom 12s ease-out forwards;
+}
+@keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to { transform: scale(1.0); }
+}
+.hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(13,27,42,0.88) 0%, rgba(13,27,42,0.65) 55%, rgba(13,27,42,0.3) 100%);
+}
+.hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px; padding: 120px 0 80px 80px;
+    animation: fadeUp 0.9s ease 0.2s both;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: 1.5px; color: var(--gold-light);
+    border: 1px solid rgba(201,168,76,0.4); padding: 6px 16px;
+    border-radius: 2px; margin-bottom: 28px; font-weight: 500;
+    text-transform: uppercase;
+}
+.hero-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(44px, 6vw, 72px); font-weight: 700;
+    line-height: 1.15; color: var(--white); margin-bottom: 24px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.hero-title em { font-style: normal; color: var(--gold-light); display: block; }
+.hero-desc {
+    font-size: 16px; line-height: 1.9;
+    color: rgba(255,255,255,0.75); margin-bottom: 40px; font-weight: 300;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+
+.btn-gold {
+    display: inline-block; padding: 14px 36px;
+    background: var(--gold); color: var(--navy);
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    border-radius: 3px; letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.35);
+}
+.btn-gold:hover {
+    background: var(--gold-light); transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(201,168,76,0.45);
+}
+.btn-gold.large { padding: 16px 48px; font-size: 16px; letter-spacing: 1px; }
+
+.btn-ghost {
+    display: inline-block; padding: 14px 36px;
+    color: var(--white); font-size: 15px; font-weight: 500;
+    text-decoration: none; border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.35);
+    transition: var(--transition); letter-spacing: 0.5px;
+}
+.btn-ghost:hover {
+    border-color: var(--gold); color: var(--gold-light);
+    background: rgba(201,168,76,0.08);
+}
+
+.hero-stats { display: flex; align-items: center; gap: 32px; }
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat strong {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 26px; font-weight: 700; color: var(--gold-light); line-height: 1;
+}
+.stat span { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; }
+.stat-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.2); }
+
+.hero-scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center;
+    gap: 8px; opacity: 0.6; animation: fadeIn 1s ease 1.5s both;
+}
+@keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 0.6; }
+}
+.hero-scroll-hint span { font-size: 11px; color: var(--white); letter-spacing: 1px; text-transform: uppercase; }
+.scroll-arrow {
+    width: 1px; height: 36px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.6; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* FEATURES BAR */
+.features { background: var(--navy); padding: 0; }
+.features-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid rgba(255,255,255,0.06);
+}
+.feature-item {
+    padding: 40px 32px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 3px solid transparent;
+    transition: var(--transition); position: relative; overflow: hidden;
+}
+.feature-item::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); transform: scaleX(0);
+    transition: var(--transition);
+}
+.feature-item:hover::before { transform: scaleX(1); }
+.feature-item:hover { background: rgba(255,255,255,0.03); }
+.feature-icon { font-size: 28px; margin-bottom: 14px; }
+.feature-item h4 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: 0.3px; }
+.feature-item p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+/* SECTION COMMON */
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-header.light .section-title,
+.section-header.light .section-desc { color: var(--white); }
+.section-tag {
+    display: inline-block; font-size: 11px; letter-spacing: 3px;
+    color: var(--gold); font-weight: 600; text-transform: uppercase; margin-bottom: 12px;
+}
+.section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 700;
+    color: var(--navy); margin-bottom: 16px; line-height: 1.3;
+}
+.section-desc {
+    font-size: 15px; color: var(--text-light);
+    line-height: 1.8; max-width: 560px; margin: 0 auto;
+}
+
+/* SERVICE */
+.service { padding: 100px 0; background: var(--off-white); }
+.service-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--border);
+}
+.service-card {
+    background: var(--white); padding: 48px 40px;
+    position: relative; overflow: hidden;
+    transition: var(--transition); cursor: default;
+}
+.service-card::after {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 3px; height: 0;
+    background: var(--gold); transition: var(--transition);
+}
+.service-card:hover::after { height: 100%; }
+.service-card:hover { background: #fffdf7; box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.card-number {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 48px; font-weight: 700;
+    color: rgba(201,168,76,0.15); line-height: 1;
+    margin-bottom: 20px; letter-spacing: -2px;
+}
+.card-icon { font-size: 32px; margin-bottom: 16px; }
+.service-card h3 { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 12px; letter-spacing: 0.3px; }
+.service-card p { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+.card-line { width: 24px; height: 2px; background: var(--gold); margin-top: 24px; transition: var(--transition); }
+.service-card:hover .card-line { width: 48px; }
+
+/* ABOUT */
+.about { padding: 100px 0; background: var(--white); }
+.about-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+.about-visual { display: flex; flex-direction: column; gap: 24px; }
+.about-img-inner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: 4px; height: 320px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+}
+.about-img-inner::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(201,168,76,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(201,168,76,0.08) 0%, transparent 50%);
+}
+.about-icon-large { font-size: 100px; opacity: 0.3; position: relative; z-index: 1; }
+.about-badge-float {
+    position: absolute; bottom: 24px; right: 24px;
+    background: var(--gold); color: var(--navy);
+    padding: 12px 16px; border-radius: 3px;
+    text-align: center; line-height: 1.2;
+    box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+}
+.about-badge-float strong { display: block; font-family: 'Noto Serif SC', serif; font-size: 36px; font-weight: 700; line-height: 1; }
+.about-badge-float span { font-size: 14px; font-weight: 600; }
+.about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.highlight-card {
+    background: var(--off-white); padding: 20px 24px; border-radius: 3px;
+    border-left: 3px solid var(--gold); display: flex; flex-direction: column; gap: 4px;
+}
+.highlight-card strong { font-family: 'Noto Serif SC', serif; font-size: 22px; color: var(--navy); font-weight: 700; }
+.highlight-card span { font-size: 12px; color: var(--text-light); }
+.about-lead { font-family: 'Noto Serif SC', serif; font-size: 20px; color: var(--navy); line-height: 1.7; margin-bottom: 20px; font-weight: 600; }
+.about-text { font-size: 15px; color: var(--text-mid); line-height: 1.9; margin-bottom: 16px; }
+.about-text strong { color: var(--navy); font-weight: 600; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.about-tags span {
+    font-size: 12px; color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 5px 14px; border-radius: 2px; letter-spacing: 0.5px;
+}
+
+/* CONTACT */
+.contact { padding: 100px 0; background: var(--navy); position: relative; overflow: hidden; }
+.contact::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+.contact .section-tag { color: var(--gold); }
+.contact .section-title { color: var(--white); }
+.contact .section-desc { color: rgba(255,255,255,0.5); }
+.contact-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; background: rgba(255,255,255,0.06); margin-bottom: 60px;
+}
+.contact-card {
+    background: rgba(255,255,255,0.03); padding: 40px 32px;
+    transition: var(--transition); position: relative;
+}
+.contact-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold); transform: scaleX(0);
+    transition: var(--transition);
+}
+.contact-card:hover::after { transform: scaleX(1); }
+.contact-card:hover { background: rgba(255,255,255,0.07); }
+.highlight-card-contact { background: rgba(201,168,76,0.08) !important; }
+.contact-icon { font-size: 28px; margin-bottom: 16px; }
+.contact-card h4 {
+    font-size: 13px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 16px;
+}
+.contact-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8; }
+.contact-card .phone {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px; color: var(--white); font-weight: 700;
+    letter-spacing: 1px; line-height: 1.4;
+}
+.contact-card .phone-name { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+.contact-card .time { font-family: 'Noto Serif SC', serif; font-size: 22px; color: var(--white); font-weight: 700; margin: 6px 0; }
+.contact-card .time-note { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+.contact-cta {
+    text-align: center; padding: 48px;
+    border: 1px solid rgba(201,168,76,0.2); border-radius: 4px;
+    background: rgba(255,255,255,0.02); position: relative; z-index: 1;
+}
+.contact-cta p { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 24px; }
+.contact-cta p strong { color: var(--gold-light); }
+
+/* FOOTER */
+.footer { background: #080f18; padding: 40px 0; }
+.footer .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.footer-brand { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); font-size: 15px; font-weight: 500; }
+.footer-brand .logo-icon { font-size: 18px; }
+.footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); text-align: center; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: var(--transition); letter-spacing: 0.3px; }
+.footer-links a:hover { color: var(--gold-light); }
+
+/* HAMBURGER STATES */
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* SCROLL ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-layout { gap: 48px; }
+}
+@media (max-width: 768px) {
+    .navbar { padding: 0 20px; }
+    .hamburger { display: flex; }
+    .nav-menu {
+        display: none; position: absolute;
+        top: 72px; left: 0; right: 0;
+        background: rgba(13,27,42,0.98);
+        flex-direction: column; gap: 0; padding: 12px 0;
+        backdrop-filter: blur(16px);
+    }
+    .nav-menu.active { display: flex; }
+    .nav-link { padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 15px; display: block; }
+    .nav-link::after { display: none; }
+    .hero-content { padding: 100px 24px 60px; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .service { padding: 70px 0; }
+    .service-grid { grid-template-columns: 1fr; }
+    .about { padding: 70px 0; }
+    .about-layout { grid-template-columns: 1fr; gap: 40px; }
+    .contact { padding: 70px 0; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .section-header { margin-bottom: 40px; }
+    .footer .container { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+    .container { padding: 0 20px; }
+    .hero-title { font-size: 36px; }
+    .hero-badge { font-size: 10px; }
+    .hero-actions { flex-direction: column; gap: 12px; }
+    .btn-gold, .btn-ghost { width: 100%; text-align: center; }
+    .features-grid { grid-template-columns: 1fr; }
+    .about-highlights { grid-template-columns: 1fr; }
+    .service-card { padding: 36px 28px; }
+    .contact-card { padding: 32px 24px; }
+    .contact-cta { padding: 32px 20px; }
+}
+    </style>
 </head>
 <body>
+
     <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">镜界学生近视防控镜</div>
-            <div class="nav-menu">
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <div class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">镜界</span>
+                <span class="logo-sub">近视防控</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active">首页</a>
-                <a href="#service" class="nav-link">服务</a>
+                <a href="#service" class="nav-link">专业服务</a>
                 <a href="#about" class="nav-link">关于我们</a>
-                <a href="#contact" class="nav-link">联系我们</a>
+                <a href="#contact" class="nav-link">立即预约</a>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <button class="hamburger" id="hamburger" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- 首页 Hero Section -->
-    <section class="hero" id="home" style="background-image: url('https://imgbed.captainzeqi.com/file/1771749009040_眼镜店门头.jpeg');">
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-bg" style="background-image: url('https://imgbed.captainzeqi.com/file/1771749009040_眼镜店门头.jpeg');"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-content-left">
-            <h1>保护视力<br><span class="text-highlight">从现在开始</span></h1>
-            <p>专业的学生近视防控方案，让青少年拥有清晰明亮的世界</p>
-            <a href="#contact" class="btn btn-primary">立即咨询</a>
+        <div class="hero-content">
+            <div class="hero-badge">专业近视防控 · 18年品质保证</div>
+            <h1 class="hero-title">守护视力<br><em>从青少年开始</em></h1>
+            <p class="hero-desc">科学配镜 · 专业防控 · 全程跟踪服务<br>让每一位学生拥有清晰明亮的未来</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn-gold">免费预约检测</a>
+                <a href="#service" class="btn-ghost">了解服务</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><strong>18年</strong><span>行业深耕</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><strong>50,000+</strong><span>服务学生</span></div>
+                <div class="stat-divider"></div>
+                <div class="stat"><strong>99%</strong><span>客户满意</span></div>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>向下探索</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- 核心优势 -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔬</div>
+                    <h4>医学级检测设备</h4>
+                    <p>引进国际先进眼科仪器</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍⚕️</div>
+                    <h4>国家一级验光师</h4>
+                    <p>持证专业团队坐诊</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <h4>权威防控镜片</h4>
+                    <p>临床验证有效延缓近视</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h4>全周期跟踪服务</h4>
+                    <p>配后定期复查，持续调优</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 服务介绍 -->
     <section class="service" id="service">
         <div class="container">
-            <h2 class="section-title">我们的专业服务</h2>
+            <div class="section-header">
+                <div class="section-tag">PROFESSIONAL SERVICES</div>
+                <h2 class="section-title">专业服务体系</h2>
+                <p class="section-desc">从检测到配镜，从配后跟踪到用眼教育，为学生视力健康提供全方位守护</p>
+            </div>
             <div class="service-grid">
                 <div class="service-card">
-                    <div class="service-icon">👁️</div>
+                    <div class="card-number">01</div>
+                    <div class="card-icon">👁️</div>
                     <h3>专业眼部检测</h3>
-                    <p>采用先进的眼科检测设备，为每位学生进行全面的视力评估和专业建议。</p>
+                    <p>采用先进眼科检测设备，对裸眼视力、屈光度、眼轴长度等进行全面精准评估，建立个人视力档案。</p>
+                    <div class="card-line"></div>
                 </div>
-
                 <div class="service-card">
-                    <div class="service-icon">🔧</div>
-                    <h3>定制化配镜方案</h3>
-                    <p>根据个人视力情况和用眼习惯，提供最适合的防控镜片和框架搭配。</p>
+                    <div class="card-number">02</div>
+                    <div class="card-icon">🔭</div>
+                    <h3>精准验光配镜</h3>
+                    <p>资深验光师一对一服务，结合电脑验光与医学综合验光，确保度数精准，避免过矫或欠矫。</p>
+                    <div class="card-line"></div>
                 </div>
-
                 <div class="service-card">
-                    <div class="service-icon">💼</div>
-                    <h3>专业验光服务</h3>
-                    <p>由资深验光师团队提供精准验光，确保配镜效果达到最佳状态。</p>
+                    <div class="card-number">03</div>
+                    <div class="card-icon">🛡️</div>
+                    <h3>定制防控方案</h3>
+                    <p>根据年龄、度数发展趋势和用眼习惯，制定个性化防控镜片搭配方案，有效延缓近视加深。</p>
+                    <div class="card-line"></div>
                 </div>
-
                 <div class="service-card">
-                    <div class="service-icon">🎓</div>
-                    <h3>近视防控教育</h3>
-                    <p>提供科学的用眼知识讲座，教导学生养成良好的用眼习惯。</p>
+                    <div class="card-number">04</div>
+                    <div class="card-icon">🎓</div>
+                    <h3>视力健康教育</h3>
+                    <p>提供专业用眼卫生知识讲解，指导家长和学生建立科学护眼习惯，从根源预防近视加深。</p>
+                    <div class="card-line"></div>
                 </div>
-
                 <div class="service-card">
-                    <div class="service-icon">🛡️</div>
-                    <h3>配后跟踪服务</h3>
-                    <p>定期回访跟踪，调整配镜方案，确保长期防控效果。</p>
+                    <div class="card-number">05</div>
+                    <div class="card-icon">📋</div>
+                    <h3>配后跟踪复查</h3>
+                    <p>建立长期视力档案，定期跟踪复查，根据近视发展情况及时调整防控方案，确保持续效果。</p>
+                    <div class="card-line"></div>
                 </div>
-
                 <div class="service-card">
-                    <div class="service-icon">📞</div>
-                    <h3>24小时客服支持</h3>
-                    <p>全天候咨询服务，解答镜片相关问题，提供专业指导。</p>
+                    <div class="card-number">06</div>
+                    <div class="card-icon">💬</div>
+                    <h3>全天候咨询服务</h3>
+                    <p>专业顾问全天候在线解答，无论是镜片选择还是日常护理，随时提供专业指导与建议。</p>
+                    <div class="card-line"></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 店铺资质 -->
-    <section class="credentials">
-        <div class="container">
-            <div class="credential-item">
-                <div class="credential-number">18年</div>
-                <div class="credential-label">行业经验</div>
-            </div>
-            <div class="credential-item">
-                <div class="credential-number">50K+</div>
-                <div class="credential-label">满足学生</div>
-            </div>
-            <div class="credential-item">
-                <div class="credential-number">99%</div>
-                <div class="credential-label">客户满意度</div>
             </div>
         </div>
     </section>
@@ -100,15 +580,40 @@
     <!-- 关于我们 -->
     <section class="about" id="about">
         <div class="container">
-            <h2 class="section-title">关于学生近视防控镜</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>我们是一家专业致力于学生近视防控的眼镜店，拥有18年的行业经验。我们拥有国家一级资质的验光师和眼镜技师，能够为每一位学生提供专业的视力检测和个性化的配镜方案。</p>
-                    <p>我们坚信：预防近视比治疗更重要。通过科学的用眼指导、高质量的防控镜片和专业的配镜服务，帮助数万名学生延缓或阻止近视的发展。</p>
-                    <p>目前我们在城市内拥有5家连锁门店，每家门店都配备了先进的验光设备和经验丰富的专业团队，致力于成为学生视力健康的守护者。</p>
+            <div class="about-layout">
+                <div class="about-visual">
+                    <div class="about-img-wrap">
+                        <div class="about-img-inner">
+                            <div class="about-icon-large">👓</div>
+                            <div class="about-badge-float">
+                                <strong>18</strong>
+                                <span>年</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-highlights">
+                        <div class="highlight-card">
+                            <strong>5家</strong>
+                            <span>城区连锁门店</span>
+                        </div>
+                        <div class="highlight-card">
+                            <strong>一级</strong>
+                            <span>国家资质验光师</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="about-image">
-                    <div class="about-placeholder"></div>
+                <div class="about-content">
+                    <div class="section-tag">OUR STORY</div>
+                    <h2 class="section-title">关于镜界</h2>
+                    <p class="about-lead">扎根赤峰18年，我们见证了无数学生从模糊走向清晰。</p>
+                    <p class="about-text">镜界学生近视防控镜是一家专注于青少年视力健康的专业眼镜连锁机构，拥有18年深厚的行业经验。我们配备国家一级资质验光师和眼镜技师，为每一位学生提供精准的视力检测与个性化配镜方案。</p>
+                    <p class="about-text">我们坚信：<strong>预防胜于治疗</strong>。通过科学的用眼指导、高质量防控镜片与专业的配镜服务，已帮助逾5万名学生有效延缓近视发展。目前在赤峰市内拥有5家连锁门店，每家均配备先进验光设备和专业团队。</p>
+                    <div class="about-tags">
+                        <span>近视防控</span>
+                        <span>医学验光</span>
+                        <span>专业配镜</span>
+                        <span>青少年视力</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,42 +622,43 @@
     <!-- 联系我们 -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">联系我们</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <div class="info-icon">📍</div>
-                        <div>
-                            <h4>店铺地址</h4>
-                            <p>赤峰市松山区向阳街道木兰街与广场路交汇处松山一小对过镜界学生近视防控镜</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">📞</div>
-                        <div>
-                            <h4>服务热线</h4>
-                            <p>18247606777（田女士）</p>
-                            <p>18247684567（王先生）</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">⏰</div>
-                        <div>
-                            <h4>营业时间</h4>
-                            <p>周一至周日 9:00-21:00</p>
-                            <p style="font-size: 13px; margin-top: 5px;">（法定假日正常营业）</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">💳</div>
-                        <div>
-                            <h4>服务项目</h4>
-                            <p>免费眼部检测 · 专业验光 · 配镜 · 维修调整</p>
-                        </div>
-                    </div>
+            <div class="section-header light">
+                <div class="section-tag">CONTACT US</div>
+                <h2 class="section-title">预约咨询</h2>
+                <p class="section-desc">免费眼部检测，专业顾问一对一解答，守护孩子视力从现在开始</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h4>门店地址</h4>
+                    <p>赤峰市松山区向阳街道<br>木兰街与广场路交汇处<br>松山一小对过</p>
                 </div>
-
-                <div style="display: none;"></div>
+                <div class="contact-card highlight-card-contact">
+                    <div class="contact-icon">📞</div>
+                    <h4>预约热线</h4>
+                    <p class="phone">18247606777</p>
+                    <p class="phone-name">田女士</p>
+                    <p class="phone">18247684567</p>
+                    <p class="phone-name">王先生</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">⏰</div>
+                    <h4>营业时间</h4>
+                    <p>周一至周日</p>
+                    <p class="time">9:00 — 21:00</p>
+                    <p class="time-note">法定假日正常营业</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">✨</div>
+                    <h4>免费服务</h4>
+                    <p>眼部检测 · 专业验光</p>
+                    <p>配镜咨询 · 镜架调整</p>
+                    <p>维修服务 · 用眼指导</p>
+                </div>
+            </div>
+            <div class="contact-cta">
+                <p>现在预约，享受<strong>免费专业眼部检测</strong>服务</p>
+                <a href="tel:18247606777" class="btn-gold large">📞 立即拨打预约</a>
             </div>
         </div>
     </section>
@@ -160,15 +666,93 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 镜界学生近视防控镜. 所有权利保留。</p>
+            <div class="footer-brand">
+                <span class="logo-icon">◈</span>
+                <span>镜界学生近视防控镜</span>
+            </div>
+            <p class="footer-copy">© 2026 镜界学生近视防控镜 · 专注青少年视力健康18年</p>
             <div class="footer-links">
                 <a href="#">隐私政策</a>
                 <a href="#">用户协议</a>
-                <a href="#">在线预约</a>
+                <a href="#contact">在线预约</a>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+(function () {
+    // 导航栏滚动样式
+    const navbar = document.getElementById('navbar');
+    function updateNavbar() {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }
+    window.addEventListener('scroll', updateNavbar, { passive: true });
+    updateNavbar();
+
+    // 汉堡菜单
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+
+    // 活动导航链接高亮
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    function updateActiveLink() {
+        let current = '';
+        sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+    }
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+    updateActiveLink();
+
+    // 滚动显现动画
+    const cards = document.querySelectorAll('.service-card, .feature-item, .contact-card, .highlight-card, .section-header, .about-content, .about-visual');
+    cards.forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 4 * 0.1) + 's';
+    });
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+            }
+        });
+    });
+
+    console.log('%c◈ 镜界学生近视防控镜', 'color:#c9a84c;font-size:18px;font-weight:bold;font-family:serif;');
+    console.log('%c专注青少年视力健康 · 18年品质保证', 'color:#7a90a4;font-size:13px;');
+})();
+    </script>
 </body>
 </html>
